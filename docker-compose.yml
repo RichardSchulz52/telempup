@@ -4,6 +4,8 @@ services:
     image: telempup:latest
     volumes:
       - podcasts:/home/app/podcasts
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
 
 volumes:
   podcasts:
