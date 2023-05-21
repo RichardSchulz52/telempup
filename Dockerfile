@@ -3,4 +3,4 @@ RUN pip install watchdog
 RUN pip install python-telegram-bot
 RUN mkdir -p /home/app/podcasts
 ADD scanAndPush.py . 
-CMD ["python", "scanAndPush.py", "/home/app/podcasts"]
+CMD ["python", "-u", "scanAndPush.py", "/home/app/podcasts"]
