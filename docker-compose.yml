@@ -1,0 +1,10 @@
+services:
+  telempup:
+    build: .
+    image: telempup:latest
+    volumes:
+      - podcasts:/home/app/podcasts
+
+volumes:
+  podcasts:
+    external: true
