@@ -28,7 +28,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chatIds.add(chatId)
     print("adding chat id " + str(chatId))
     await update.message.reply_text(
-        rf"This chat will now recive podcasts"
+        rf"This chat will now recive podcasts!"
     )
 
 
