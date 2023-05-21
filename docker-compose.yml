@@ -7,7 +7,7 @@ services:
       - podcasts:/home/app/podcasts
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
-      - PYTHONUNBUFFERED=0
+      - PYTHONUNBUFFERED=1
 
 volumes:
   podcasts:
