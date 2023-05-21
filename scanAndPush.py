@@ -2,7 +2,7 @@ from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
 from telegram import Update, Bot
 from telegram.ext import Application, CommandHandler, ContextTypes
-import asyncio, os, sys
+import asyncio, os, sys, logging
 
 chatIds = set()
 
@@ -37,7 +37,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 
 def main():
-    print("Starting telempup")
+    logging.info("Starting telempup")
     upload_path = "."
     if (len(sys.argv) > 0):
         upload_path = sys.argv[0]
