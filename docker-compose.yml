@@ -1,11 +1,13 @@
 services:
   telempup:
+    container_name: telempup
     build: .
     image: telempup:latest
     volumes:
       - podcasts:/home/app/podcasts
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
+      - PYTHONUNBUFFERED=0
 
 volumes:
   podcasts:
