@@ -26,6 +26,7 @@ class MyHandler(FileSystemEventHandler):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chatId = update.message.chat.id
     chatIds.add(chatId)
+    print("adding chat id " + str(chatId))
     await update.message.reply_text(
         rf"This chat will now recive podcasts"
     )
@@ -36,14 +37,15 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 
 def main():
-
+    print("Starting telempup")
     upload_path = "."
     if (len(sys.argv) > 0):
         upload_path = sys.argv[0]
+    print("looking in " + str(upload_path))
 
     bot = Bot(os.environ['BOT_TOKEN'])
     if not bot:
-        print ("A bot token must be given in the environment as BOT_TOKEN")
+        print("A bot token must be given in the environment as BOT_TOKEN")
         sys.exit()
     application = Application.builder().bot(bot).build()
     
