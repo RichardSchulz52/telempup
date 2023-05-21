@@ -41,7 +41,7 @@ def main():
     upload_path = "."
     if (len(sys.argv) > 0):
         upload_path = sys.argv[0]
-    print("looking in " + str(upload_path))
+    print("looking in " + str(upload_path), flush=True)
 
     bot = Bot(os.environ['BOT_TOKEN'])
     if not bot:
