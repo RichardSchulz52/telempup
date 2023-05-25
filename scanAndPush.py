@@ -27,6 +27,8 @@ class MyHandler(FileSystemEventHandler):
                 print ("start sending to " + str(id))
                 asyncio.new_event_loop().run_until_complete(send(id, mp3, artist, v_title))
                 print("finished sending to " + str(id))
+        else:
+            print("passing")
                 
     
 async def send(id, mp3, artist, v_title):
