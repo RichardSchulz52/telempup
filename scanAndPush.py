@@ -18,7 +18,10 @@ class MyHandler(FileSystemEventHandler):
         artist = os.path.dirname(path).split("/")[-1]
         v_title = os.path.split(path)[1].split('.')[0]
         if (path.__contains__(".mp3")):
-            mp3 = open(path, "rb")
+            try:
+                mp3 = open(path, "rb")
+            except Exception as e:
+                print("Cant open\n" + str(e))
             tasks = []
             for id in chatIds:
                 print ("start sending to " + str(id))
@@ -27,8 +30,14 @@ class MyHandler(FileSystemEventHandler):
                 
     
 async def send(id, mp3, artist, v_title):
-    bot = Bot(os.environ['BOT_TOKEN'])
-    await bot.send_audio(id, mp3, performer=artist, title=v_title, caption="#"+str(artist))
+    try:
+        bot = Bot(os.environ['BOT_TOKEN'])
+        await bot.send_audio(id, mp3, performer=artist, title=v_title, caption="#"+str(artist))
+    except Exception as e:
+        print("Exception occured for " + str(artist) + " " + str(v_title) + "\n" + str(e))
+
+
+
 
 
 
