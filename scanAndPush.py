@@ -2,7 +2,7 @@ from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
 from telegram import Update, Bot
 from telegram.ext import Application, CommandHandler, ContextTypes
-import asyncio, os, sys
+import asyncio, os, sys, time
 
 chatIds = set()
 
@@ -19,6 +19,7 @@ class MyHandler(FileSystemEventHandler):
         v_title = os.path.split(path)[1].split('.')[0]
         if (path.__contains__(".mp3")):
             try:
+                time.sleep(3)
                 mp3 = open(path, "rb")
                 tasks = []
                 for id in chatIds:
