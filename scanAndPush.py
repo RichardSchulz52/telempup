@@ -2,7 +2,7 @@ from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
 from telegram import Update, Bot
 from telegram.ext import Application, CommandHandler, ContextTypes
-import asyncio, os, sys, logging
+import asyncio, os, sys
 
 chatIds = set()
 
@@ -19,8 +19,17 @@ class MyHandler(FileSystemEventHandler):
         v_title = os.path.split(path)[1].split('.')[0]
         if (path.__contains__(".mp3")):
             mp3 = open(path, "rb")
+            tasks = []
             for id in chatIds:
-                asyncio.run(self.bot.send_audio(id, mp3, performer=artist, title=v_title, caption="#"+str(artist)))
+                print ("start sending to " + str(id))
+                asyncio.new_event_loop().run_until_complete(send(id, mp3, artist, v_title))
+                print("finished sending to " + str(id))
+                
+    
+async def send(id, mp3, artist, v_title):
+    bot = Bot(os.environ['BOT_TOKEN'])
+    await bot.send_audio(id, mp3, performer=artist, title=v_title, caption="#"+str(artist))
+
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -64,7 +73,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 
