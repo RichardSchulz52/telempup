@@ -20,13 +20,13 @@ class MyHandler(FileSystemEventHandler):
         if (path.__contains__(".mp3")):
             try:
                 mp3 = open(path, "rb")
+                tasks = []
+                for id in chatIds:
+                    print ("start sending to " + str(id))
+                    asyncio.new_event_loop().run_until_complete(send(id, mp3, artist, v_title))
+                    print("finished sending to " + str(id))
             except Exception as e:
-                print("Cant open\n" + str(e))
-            tasks = []
-            for id in chatIds:
-                print ("start sending to " + str(id))
-                asyncio.new_event_loop().run_until_complete(send(id, mp3, artist, v_title))
-                print("finished sending to " + str(id))
+                print("Exception in preperation\n" + str(e))
         else:
             print("passing")
                 
@@ -37,10 +37,6 @@ async def send(id, mp3, artist, v_title):
         await bot.send_audio(id, mp3, performer=artist, title=v_title, caption="#"+str(artist))
     except Exception as e:
         print("Exception occured for " + str(artist) + " " + str(v_title) + "\n" + str(e))
-
-
-
-
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
