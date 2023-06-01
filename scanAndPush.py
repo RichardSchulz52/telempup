@@ -47,7 +47,7 @@ async def send(id, mp3, artist, v_title):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chatId = update.message.chat.id
     chatIds.add(chatId)
-    print("adding chat id " + str(chatId))
+    print("adding chat id " + str(chatId) + "!")
     await update.message.reply_text(
         rf"This chat will now recive podcasts"
     )
