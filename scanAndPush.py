@@ -19,7 +19,7 @@ class MyHandler(FileSystemEventHandler):
         v_title = os.path.split(path)[1].split('.')[0]
         if (path.__contains__(".mp3") and not path.__contains__(".temp.")):
             try:
-                files = os.listdir(path)
+                files = os.listdir(os.path.dirname(path))
                 regex = re.compile(".*\.mp4")
                 while (len(list(filter(regex.match, files))) > 0):
                     print('mp3 file not finished till mp4 exists. Sleeping 10s')
@@ -49,7 +49,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chatIds.add(chatId)
     print("adding chat id " + str(chatId) + "!")
     await update.message.reply_text(
-        rf"This chat will now recive podcasts"
+        rf"This chat will now recive podcasts!"
     )
 
 
