@@ -24,6 +24,7 @@ class MyHandler(FileSystemEventHandler):
                 while (len(list(filter(regex.match, files))) > 0):
                     print('mp3 file not finished till mp4 exists. Sleeping 10s')
                     time.sleep(10)
+                    files = os.listdir(os.path.dirname(path))
                 mp3 = open(path, "rb")
                 tasks = []
                 for id in chatIds:
@@ -49,7 +50,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chatIds.add(chatId)
     print("adding chat id " + str(chatId) + "!")
     await update.message.reply_text(
-        rf"This chat will now recive podcasts!"
+        rf"This chat will now recive podcasts."
     )
 
 
