@@ -2,7 +2,7 @@ from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
 from telegram import Update, Bot
 from telegram.ext import Application, CommandHandler, ContextTypes
-import asyncio, os, sys, time
+import asyncio, os, sys, time, re
 
 chatIds = set()
 
@@ -17,9 +17,13 @@ class MyHandler(FileSystemEventHandler):
         path = event.src_path.strip()
         artist = os.path.dirname(path).split("/")[-1]
         v_title = os.path.split(path)[1].split('.')[0]
-        if (path.__contains__(".mp3")):
+        if (path.__contains__(".mp3") and not path.__contains__(".temp.")):
             try:
-                time.sleep(3)
+                files = os.listdir(path)
+                regex = re.compile(".*\.mp4")
+                while (len(list(filter(regex.match, files))) > 0):
+                    print('mp3 file not finished till mp4 exists. Sleeping 10s')
+                    time.sleep(10)
                 mp3 = open(path, "rb")
                 tasks = []
                 for id in chatIds:
